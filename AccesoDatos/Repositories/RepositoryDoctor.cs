@@ -160,5 +160,54 @@ namespace AccesoDatos.Repositories
             return doctores;
         }
 
+        //VERSION 2
+
+        public int incrementaSalario(int hospitalcod, int incremento)
+        {
+            String sqlupdate = "UPDATE DOCTOR SET SALARIO += @INCREMENTO WHERE HOSPITAL_COD = @HOSPITALCOD";
+            this.com.CommandText = sqlupdate;
+
+            SqlParameter pamhospitalcod = new SqlParameter("@HOSPITALCOD", hospitalcod);
+            SqlParameter pamincremento = new SqlParameter("@INCREMENTO", incremento);
+
+            this.com.Parameters.Add(pamhospitalcod);
+            this.com.Parameters.Add(pamincremento);
+
+            this.cn.Open();
+
+            int result = this.com.ExecuteNonQuery();
+            this.com.Parameters.Clear();
+            this.cn.Close();
+
+            return result;
+        }
+
+        public int InsertarDoctor2(String hospital, int doctor_no, String apellido, String especialidad, int salario)
+        {
+            String sqlinsert = "INSERT INTO DOCTOR VALUES ((SELECT HOSPITAL_COD FROM HOSPITAL WHERE NOMBRE = @HOSPINOMBRE), @DOCTORNO, @APELLIDO, @ESPECIALIDAD, @SALARIO)";
+
+            SqlParameter pamhospicod = new SqlParameter("@HOSPINOMBRE", hospital);
+            SqlParameter pamdoctorno = new SqlParameter("@DOCTORNO", doctor_no);
+            SqlParameter pamapellido = new SqlParameter("@APELLIDO", apellido);
+            SqlParameter pamespecialidad = new SqlParameter("@ESPECIALIDAD", especialidad);
+            SqlParameter pamsalario = new SqlParameter("@SALARIO", salario);
+
+            //añadimos los parámetros al command
+            this.com.Parameters.Add(pamhospicod);
+            this.com.Parameters.Add(pamdoctorno);
+            this.com.Parameters.Add(pamapellido);
+            this.com.Parameters.Add(pamespecialidad);
+            this.com.Parameters.Add(pamsalario);
+
+
+            this.com.CommandText = sqlinsert;
+            this.cn.Open();
+
+            int result = this.com.ExecuteNonQuery();
+            this.com.Parameters.Clear();
+            this.cn.Close();
+
+            return result;
+        }
     }
 }

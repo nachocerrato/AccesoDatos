@@ -21,12 +21,17 @@ namespace AccesoDatos
             //int resultado = repo.ModificarDoctor(120, 19, "Cerrato R.", "Futbología", 500000);
             //Console.WriteLine(resultado);
             //Doctor doctor = repo.BuscarDoctor()
-            List<Doctor> doctores = repo.getDoctores();
-            foreach (Doctor doctor in doctores)
-            {
-                Console.WriteLine(doctor.Apellido + " - " + doctor.Especialidad
-                                                  + " - " + doctor.Salario);
-            }
+            //List<Doctor> doctores = repo.getDoctores();
+            //foreach (Doctor doctor in doctores)
+            //{
+            //    Console.WriteLine(doctor.Apellido + " - " + doctor.Especialidad
+            //                                      + " - " + doctor.Salario);
+            //}
+            //int resultado = repo.incrementaSalario(22, 50);
+            //Console.WriteLine(resultado);
+
+            int result = repo.InsertarDoctor2("General", 111, "Cerrato Rsss.", "Futbologíasss", 111111);
+
 
 
 
